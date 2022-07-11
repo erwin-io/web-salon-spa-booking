@@ -1,0 +1,204 @@
+﻿@model WebSalonSpa.Domain.BindingModel.RegisterBusinessBindingModel
+
+@{
+    Layout = "_Layout.cshtml";
+    ViewBag.Title = "Register";
+}
+
+@section Styles
+{
+    <style type="text/css">
+        .register-box {
+            min-width: 414px;
+        }
+    </style>
+}
+
+<div class="register-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="/" class="h1"><b>Salon and Spa</b></a>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Create a business account</p>
+            @using (Html.BeginForm("RegisterBusiness", "Account", FormMethod.Post, new { @class = "", @id = "register-form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <label>First name</label>
+                    <label style="color:red"> *</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Enter first name" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Last name</label>
+                    <label style="color:red"> *</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Enter last name" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Primary phone number</label>
+                    <label style="color:red"> *</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.PrimaryPhoneNumber, new { @class = "form-control", @placeholder = "Enter primary phone number" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.PrimaryPhoneNumber, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Secondary phone number</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.SecondPhoneNumber, new { @class = "form-control", @placeholder = "Enter secondary phone number" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.SecondPhoneNumber, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <label style="color:red"> *</label>
+                    @Html.DropDownList("BusinessCategoryId", (List<SelectListItem>)ViewData["LookupBusinessCategories"], new { @class = "form-control select-single-dropdown" })
+                    @Html.ValidationMessageFor(m => m.BusinessCategoryId, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Complete address</label>
+                    <label style="color:red"> *</label>
+                    <div class="input-group">
+                        @Html.TextAreaFor(m => m.CompleteAddress, new { @class = "form-control", @placeholder = "Enter complete address", @style = "max-height:130px;min-height:62px" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.CompleteAddress, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <label style="color:red"> *</label>
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter email" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <label style="color:red"> *</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        </div>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password" })
+                        <div class="input-group-append password-show-hide" aria-control="Password">
+                            <div class="input-group-text">
+                                <span class="fas fa-eye"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm password</label>
+                    <label style="color:red"> *</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        </div>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm password" })
+                        <div class="input-group-append password-show-hide" aria-control="ConfirmPassword">
+                            <div class="input-group-text">
+                                <span class="fas fa-eye"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-12">
+                        <input type="submit" class="btn btn-primary btn-block" value="Register" />
+                    </div>
+                    <!-- /.col -->
+                </div>
+            }
+            <div class="social-auth-links text-center">
+                <a href="~/Account/RegisterCustomer" class="btn btn-block btn-danger">
+                    <i class="fab fas fa-user mr-2"></i>
+                    Create a customer account
+                </a>
+            </div>
+
+            <p class="mb-0">
+                @Html.ActionLink("I already have an account", "Login")
+            </p>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#register-form").submit(function (e) {
+                $("input").attr("readonly", true);
+                $(":submit").attr("disabled", true);
+            });
+            $.each($(".password-show-hide"), function (key, value) {
+                //initiate
+                let fieldId = $(value).attr("aria-control") !== null || $(value).attr("aria-control") !== undefined ? $(value).attr("aria-control") : "";
+                let input = $("#" + fieldId).get(0);
+                let showPassHolder = $(value).find(".input-group-text");
+                let isFieldPassword = ((input !== null || input !== undefined) && input.type === "password");
+                if (!isFieldPassword)
+                    //we want to make sure it is password type then force type to passord
+                    input.type = "password";
+                //icon should be identified as password and default as hide password icon
+                showPassHolder.html("<span class='fas fa-eye'></span>");
+                $(value).css("cursor", "pointer");
+                //end initiate
+                $(value).click(function (e) {
+                    showHidePassword();
+                });
+
+                let showHidePassword = function () {
+                    isFieldPassword = ((input !== null || input !== undefined) && input.type === "password");
+                    if (isFieldPassword) {
+                        input.type = "text";
+                        showPassHolder !== null && showPassHolder !== undefined ?
+                            showPassHolder.html("<span class='fas fa-eye-slash'></span>") : false;
+                    }
+                    else {
+                        input.type = "password";
+                        showPassHolder !== null && showPassHolder !== undefined ?
+                            showPassHolder.html("<span class='fas fa-eye'></span>") : false;
+                    }
+                }
+            });
+            //Initialize Select2 Elements
+            $('.select-single-dropdown').select2({
+                theme: 'bootstrap4'
+            });
+        });
+    </script>
+}
