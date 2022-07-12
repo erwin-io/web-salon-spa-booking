@@ -1,0 +1,58 @@
+﻿@model WebSalonSpa.Domain.ViewModel.AccountViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="~/File/GetDefaultUserProfilePic"
+                                 alt="User profile picture">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-3">
+                        <h3 class="card-title">My Profile</h3>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        @if (Model.User.UserTypeId == 1)
+                        {
+                            @Html.Partial("~/Views/Profile/_Customer.cshtml", Model.Customer)
+                        }
+                        else
+                        {
+                            @Html.Partial("~/Views/Profile/_Business.cshtml", Model.Business)
+                        }
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

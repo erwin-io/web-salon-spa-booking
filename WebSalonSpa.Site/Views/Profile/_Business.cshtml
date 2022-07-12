@@ -1,0 +1,48 @@
+﻿@model WebSalonSpa.Domain.ViewModel.BusinessViewModel
+<div class="row">
+    <div class="col-12">
+        <div class="post">
+            <div class="text-muted">
+                <p class="text-sm">
+                    UserName
+                    <b class="d-block">@Model.User.UserName</b>
+                </p>
+            </div>
+
+            <div class="text-muted">
+                <p class="text-sm">
+                    Name
+                    <b class="d-block">@Model.FirstName @Model.LastName</b>
+                </p>
+            </div>
+
+            <div class="text-muted">
+                <p class="text-sm">
+                    Email
+                    <b class="d-block">@Model.User.Email</b>
+                </p>
+            </div>
+
+            <div class="text-muted">
+                <p class="text-sm">
+                    Primary Phone Number
+                    <b class="d-block">@Model.PrimaryPhoneNumber</b>
+                </p>
+            </div>
+
+            <div class="text-muted">
+                <p class="text-sm">
+                    Second Phone Number
+                    <b class="d-block">@Model.SecondPhoneNumber</b>
+                </p>
+            </div>
+
+            <div class="text-muted">
+                <p class="text-sm">
+                    Business Category
+                    <b class="d-block">@Model.BusinessCategory.BusinessCategoryName</b>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
