@@ -66,13 +66,17 @@
   <ItemGroup>
     <Compile Include="DataContext\Business.cs" />
     <Compile Include="DataContext\BusinessCategory.cs" />
+    <Compile Include="DataContext\BusinessView.cs" />
+    <Compile Include="DataContext\City.cs" />
     <Compile Include="DataContext\Customer.cs" />
+    <Compile Include="DataContext\CustomerView.cs" />
     <Compile Include="DataContext\EntityApprovalStatu.cs" />
     <Compile Include="DataContext\EntityGender.cs" />
     <Compile Include="DataContext\EntityStatu.cs" />
     <Compile Include="DataContext\File.cs" />
     <Compile Include="DataContext\User.cs" />
     <Compile Include="DataContext\UserType.cs" />
+    <Compile Include="DataContext\UserView.cs" />
     <Compile Include="DataContext\WebSalonSpaDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,8 +88,12 @@
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IBusinessRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerRepository.cs" />
+    <Compile Include="ViewConfiguration\CustomerViewConfiguration.cs" />
+    <Compile Include="ViewConfiguration\UserViewConfiguration.cs" />
+    <Compile Include="ViewConfiguration\BusinessViews.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

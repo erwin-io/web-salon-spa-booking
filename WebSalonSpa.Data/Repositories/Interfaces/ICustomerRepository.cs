@@ -10,7 +10,7 @@ namespace WebSalonSpa.Data.Repositories.Interfaces
     public interface ICustomerRepository
     {
         Task<Customer> GetById(long id);
-        Task<Customer> GetByUserId(long id);
+        Task<CustomerView> GetByUserId(long id);
         Task<bool> UpdateBasicInfo(Customer model);
         Task<bool> UpdateContact(Customer model);
     }

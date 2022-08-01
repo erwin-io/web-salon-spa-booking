@@ -34,15 +34,18 @@ namespace WebSalonSpa.Data.Repositories
                 //                select c).SingleOrDefault();
 
                 //return customers;
-                return await ctx.Customers.Include(x => x.EntityGender).Where(c => c.CustomerId == id).SingleOrDefaultAsync();
+                return await ctx.Customers
+                    .Include(x => x.EntityGender)
+                    .Include(x => x.EntityGender).Where(x => x.CustomerId == id).SingleOrDefaultAsync();
             }
         }
 
-        public async Task<Customer> GetByUserId(long id)
+        public async Task<CustomerView> GetByUserId(long id)
         {
             using (var ctx = new WebSalonSpaDbContext())
             {
-                return await ctx.Customers.Include(x => x.EntityGender).Where(c => c.UserId == id).SingleOrDefaultAsync();
+                return await ctx.CustomerViews
+                    .Where(x => x.UserId == id).SingleOrDefaultAsync();
             }
         }
 
@@ -55,7 +58,7 @@ namespace WebSalonSpa.Data.Repositories
 
             using (var ctx = new WebSalonSpaDbContext())
             {
-                var exist = await ctx.Customers.AnyAsync(c => c.CustomerId == model.CustomerId);
+                var exist = await ctx.Customers.AnyAsync(x => x.CustomerId == model.CustomerId);
 
                 if (!exist)
                 {
@@ -88,7 +91,7 @@ namespace WebSalonSpa.Data.Repositories
 
             using (var ctx = new WebSalonSpaDbContext())
             {
-                var exist = await ctx.Customers.AnyAsync(c => c.CustomerId == model.CustomerId);
+                var exist = await ctx.Customers.AnyAsync(x => x.CustomerId == model.CustomerId);
 
                 if (!exist)
                 {

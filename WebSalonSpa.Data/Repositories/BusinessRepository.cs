@@ -26,15 +26,18 @@ namespace WebSalonSpa.Data.Repositories
         {
             using (var ctx = new WebSalonSpaDbContext())
             {
-                return await ctx.Businesses.Where(c => c.BusinessId == id).SingleOrDefaultAsync();
+                return await ctx.Businesses
+                    .Include(x => x.BusinessCategory)
+                    .Where(x => x.BusinessId == id).SingleOrDefaultAsync();
             }
         }
 
-        public async Task<Business> GetByUserId(long id)
+        public async Task<BusinessView> GetByUserId(long id)
         {
             using (var ctx = new WebSalonSpaDbContext())
             {
-                return await ctx.Businesses.Where(c => c.UserId == id).SingleOrDefaultAsync();
+                return await ctx.BusinessViews
+                    .Where(x => x.UserId == id).SingleOrDefaultAsync();
             }
         }
 
@@ -47,7 +50,7 @@ namespace WebSalonSpa.Data.Repositories
 
             using (var ctx = new WebSalonSpaDbContext())
             {
-                var exist = await ctx.Businesses.AnyAsync(c => c.BusinessId == model.BusinessId);
+                var exist = await ctx.Businesses.AnyAsync(x => x.BusinessId == model.BusinessId);
 
                 if (!exist)
                 {
@@ -57,8 +60,8 @@ namespace WebSalonSpa.Data.Repositories
                 Business customer = new Business()
                 {
                     BusinessId = model.BusinessId,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    BusinessName = model.BusinessName,
+                    CityId = model.CityId,
                     BusinessCategoryId = model.BusinessCategoryId,
                     CompleteAddress = model.CompleteAddress,
                     Desciption = model.Desciption
@@ -79,7 +82,7 @@ namespace WebSalonSpa.Data.Repositories
 
             using (var ctx = new WebSalonSpaDbContext())
             {
-                var exist = await ctx.Businesses.AnyAsync(c => c.BusinessId == model.BusinessId);
+                var exist = await ctx.Businesses.AnyAsync(x => x.BusinessId == model.BusinessId);
 
                 if (!exist)
                 {
@@ -109,7 +112,7 @@ namespace WebSalonSpa.Data.Repositories
 
             using (var ctx = new WebSalonSpaDbContext())
             {
-                var exist = await ctx.Businesses.AnyAsync(c => c.BusinessId == model.BusinessId);
+                var exist = await ctx.Businesses.AnyAsync(x => x.BusinessId == model.BusinessId);
 
                 if (!exist)
                 {
@@ -119,14 +122,23 @@ namespace WebSalonSpa.Data.Repositories
                 Business customer = new Business()
                 {
                     BusinessId = model.BusinessId,
-                    OpenHourStart = model.OpenHourStart,
-                    OpenHourEnd = model.OpenHourEnd,
+                    TimeOpen = model.TimeOpen,
+                    TimeClose = model.TimeClose,
                 };
 
                 await ctx.SaveChangesAsync();
             }
 
             return true;
+        }
+
+        public async Task<IList<BusinessView>> SearchBusiness()
+        {
+            using (var ctx = new WebSalonSpaDbContext())
+            {
+                var d = await ctx.BusinessViews.ToListAsync();
+                return await ctx.BusinessViews.ToListAsync();
+            }
         }
         #endregion Methods
     }

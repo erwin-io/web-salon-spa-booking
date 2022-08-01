@@ -13,6 +13,13 @@ namespace WebSalonSpa.Mapping.Profiles
         {
             this.IgnoreUnmapped();
             CreateMap<ApplicationUser, UserViewModel>();
+            CreateMap<UserView, UserViewModel>()
+                .ForPath(dest => dest.UserType, opt => opt.MapFrom(src =>
+                    new UserTypeViewModel()
+                    {
+                        UserTypeId = src.UserTypeId ?? default(long),
+                        UserTypeName = src.UserTypeName,
+                    }));
         }
     }
 }

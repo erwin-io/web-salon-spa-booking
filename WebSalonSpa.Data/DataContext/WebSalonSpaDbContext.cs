@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using WebSalonSpa.Data.Models;
+using WebSalonSpa.Data.ViewConfiguration;
 
 namespace WebSalonSpa.Data.DataContext
 {
@@ -27,6 +28,7 @@ namespace WebSalonSpa.Data.DataContext
         public virtual DbSet<User> CompanyUsers { get; set; }
         public virtual DbSet<Business> Businesses { get; set; }
         public virtual DbSet<BusinessCategory> BusinessCategories { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<EntityApprovalStatu> EntityApprovalStatus { get; set; }
         public virtual DbSet<EntityGender> EntityGenders { get; set; }
@@ -34,7 +36,9 @@ namespace WebSalonSpa.Data.DataContext
         public virtual DbSet<File> Files { get; set; }
         //public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-
+        public virtual DbSet<BusinessView> BusinessViews { get; set; }
+        public virtual DbSet<CustomerView> CustomerViews { get; set; }
+        public virtual DbSet<UserView> UserViews { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Do not pluralize the db tables
@@ -46,6 +50,11 @@ namespace WebSalonSpa.Data.DataContext
             modelBuilder.Entity<BusinessCategory>()
                 .HasMany(e => e.Businesses)
                 .WithRequired(e => e.BusinessCategory)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<City>()
+                .HasMany(e => e.Businesses)
+                .WithRequired(e => e.City)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EntityGender>()
@@ -67,6 +76,10 @@ namespace WebSalonSpa.Data.DataContext
                 .HasMany(e => e.Customers)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Configurations.Add(new UserViewConfiguration());
+            modelBuilder.Configurations.Add(new BusinessViewConfiguration());
+            modelBuilder.Configurations.Add(new CustomerViewConfiguration());
         }
 
 

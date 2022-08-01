@@ -15,11 +15,7 @@ namespace WebSalonSpa.Data.DataContext
 
         [Required]
         [StringLength(250)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(250)]
-        public string LastName { get; set; }
+        public string BusinessName { get; set; }
 
         public long BusinessCategoryId { get; set; }
 
@@ -35,11 +31,15 @@ namespace WebSalonSpa.Data.DataContext
         [Required]
         public string CompleteAddress { get; set; }
 
+        public long CityId { get; set; }
+
         public string Desciption { get; set; }
 
-        public TimeSpan? OpenHourStart { get; set; }
+        [StringLength(10)]
+        public string TimeOpen { get; set; }
 
-        public TimeSpan? OpenHourEnd { get; set; }
+        [StringLength(10)]
+        public string TimeClose { get; set; }
 
         public bool IsVerified { get; set; }
 
@@ -53,9 +53,14 @@ namespace WebSalonSpa.Data.DataContext
 
         public long? BannerImageFile { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DatePermitExpired { get; set; }
+
         public long EntityStatusId { get; set; }
 
         public virtual BusinessCategory BusinessCategory { get; set; }
+
+        public virtual City City { get; set; }
 
         public virtual User User { get; set; }
     }

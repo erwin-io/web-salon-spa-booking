@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="AutoMapperHelper.cs" />
+    <Compile Include="Profiles\BusinessProfile.cs" />
     <Compile Include="Profiles\CustomerProfile.cs" />
     <Compile Include="Profiles\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

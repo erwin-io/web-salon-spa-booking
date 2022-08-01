@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSalonSpa.Data.DataContext;
 
-namespace WebSalonSpa.Data.Views
+namespace WebSalonSpa.Data.ViewConfiguration
 {
     public class BusinessViewConfiguration : EntityTypeConfiguration<BusinessView>
     {

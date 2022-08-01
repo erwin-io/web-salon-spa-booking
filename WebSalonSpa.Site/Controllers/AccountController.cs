@@ -17,17 +17,20 @@ using System.Data.Entity;
 using WebSalonSpa.Data.Repositories;
 using WebSalonSpa.Mapping;
 using System.Collections.Generic;
+using WebSalonSpa.Site.Controllers.Core;
+using WebSalonSpa.Helpers;
 
 namespace WebSalonSpa.Site.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private LookupRepository _lookupRepository = new LookupRepository();
         private IUserRepository _userRepository = new UserRepository();
         private ICustomerRepository _customerRepository = new CustomerRepository();
+        private IBusinessRepository _businessRepository = new BusinessRepository();
 
         public AccountController()
         {
@@ -60,14 +63,21 @@ namespace WebSalonSpa.Site.Controllers
         // GET: /Account/Profile
         public async Task<ActionResult> Profile()
         {
-            int userId = Convert.ToInt32(User.Identity.GetUserId());
-            var user = AutoMapperHelper<ApplicationUser, UserViewModel>.Map(await _userRepository.GetById(userId));
-            var model = new AccountViewModel()
+            var model = new AccountViewModel() { User = await GetCurrentUser() };
+            if(model.User.UserType.UserTypeId == 1)
             {
-                User = user,
-                Customer = user.UserTypeId == 1 ? AutoMapperHelper<Customer, CustomerViewModel>.Map(await _customerRepository.GetByUserId(userId)) : null
-            };
-            return View(model);
+                await base.GetLookup($"{LookupNames.LOOKUP_GENDER}");
+                var customer = AutoMapperHelper<CustomerView, CustomerViewModel>.Map(await _customerRepository.GetByUserId(UserId));
+                model.Customer = customer;
+            }
+            else
+            {
+                await base.GetLookup($"{LookupNames.LOOKUP_BUSINESS_CATEGORY},{LookupNames.LOOKUP_CITY}");
+                var d = await _businessRepository.SearchBusiness();
+                var business = AutoMapperHelper<BusinessView, BusinessViewModel>.Map(await _businessRepository.GetByUserId(UserId));
+                model.Business = business;
+            }
+            return View("~/Views/Profile/UserProfile.cshtml", model);
         }
 
         //
@@ -167,8 +177,7 @@ namespace WebSalonSpa.Site.Controllers
         public async Task<ActionResult> RegisterCustomer()
         {
             var model = new RegisterCustomerBindingModel();
-            var entityGenders = await _lookupRepository.GetEntityGenders();
-            ViewData["LookupEntityGenders"] = entityGenders.ToList().Select(g => new SelectListItem() { Text = g.GenderName, Value = g.GenderId.ToString() }).ToList();
+            await base.GetLookup($"{LookupNames.LOOKUP_GENDER}");
             return View(model);
         }
 
@@ -178,8 +187,7 @@ namespace WebSalonSpa.Site.Controllers
         public async Task<ActionResult> RegisterBusiness()
         {
             var model = new RegisterBusinessBindingModel();
-            var businessCategories = await _lookupRepository.GetBusinessCategories();
-            ViewData["LookupBusinessCategories"] = businessCategories.ToList().Select(g => new SelectListItem() { Text = g.BusinessCategoryName, Value = g.BusinessCategoryId.ToString() }).ToList();
+            await base.GetLookup($"{LookupNames.LOOKUP_BUSINESS_CATEGORY},{LookupNames.LOOKUP_CITY}");
             return View(model);
         }
 
@@ -190,9 +198,7 @@ namespace WebSalonSpa.Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterCustomer(RegisterCustomerBindingModel model)
         {
-            var entityGenders = await _lookupRepository.GetEntityGenders();
-            ViewData["LookupEntityGenders"] = entityGenders.ToList().Select(g => new SelectListItem() { Text = g.GenderName, Value = g.GenderId.ToString() }).ToList();
-
+            await base.GetLookup($"{LookupNames.LOOKUP_GENDER}");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -269,8 +275,7 @@ namespace WebSalonSpa.Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterBusiness(RegisterBusinessBindingModel model)
         {
-            var businessCategories = await _lookupRepository.GetBusinessCategories();
-            ViewData["LookupBusinessCategories"] = businessCategories.ToList().Select(g => new SelectListItem() { Text = g.BusinessCategoryName, Value = g.BusinessCategoryId.ToString() }).ToList();
+            await base.GetLookup($"{LookupNames.LOOKUP_BUSINESS_CATEGORY},{LookupNames.LOOKUP_CITY}");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -301,14 +306,16 @@ namespace WebSalonSpa.Site.Controllers
                                 Business business = new Business()
                                 {
                                     UserId = user.Id,
-                                    FirstName = model.FirstName,
-                                    LastName = model.LastName,
+                                    BusinessName = model.BusinessName,
                                     BusinessCategoryId = model.BusinessCategoryId,
                                     BusinessEmail = model.Email,
                                     PrimaryPhoneNumber = model.PrimaryPhoneNumber,
                                     SecondPhoneNumber = model.SecondPhoneNumber,
+                                    CityId = model.CityId,
                                     CompleteAddress = model.CompleteAddress,
                                     Desciption = model.Desciption,
+                                    TimeOpen = model.TimeOpen,
+                                    TimeClose = model.TimeClose,
                                     IsVerified = true,
                                     IsPaid = false,
                                     IsSuspended = false,

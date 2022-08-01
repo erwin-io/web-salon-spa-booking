@@ -8,6 +8,7 @@ namespace WebSalonSpa.Domain.ViewModel
     {
         public UserViewModel User { get; set; }
         public CustomerViewModel Customer { get; set; }
+        public BusinessViewModel Business { get; set; }
     }
     public class ExternalLoginConfirmationViewModel
     {

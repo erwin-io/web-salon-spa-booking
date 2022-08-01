@@ -1,5 +1,4 @@
 ﻿@model WebSalonSpa.Domain.BindingModel.RegisterBusinessBindingModel
-
 @{
     Layout = "_Layout.cshtml";
     ViewBag.Title = "Register";
@@ -28,22 +27,20 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="form-group">
-                    <label>First name</label>
+                    <label>Business name</label>
                     <label style="color:red"> *</label>
                     <div class="input-group">
-                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Enter first name" })
+                        @Html.TextBoxFor(m => m.BusinessName, new { @class = "form-control", @placeholder = "Enter business name" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.BusinessName, "", new { @class = "text-danger" })
                     <!-- /.input group -->
                 </div>
 
                 <div class="form-group">
-                    <label>Last name</label>
+                    <label>Business category</label>
                     <label style="color:red"> *</label>
-                    <div class="input-group">
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Enter last name" })
-                    </div>
-                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    @Html.DropDownList("BusinessCategoryId", (List<SelectListItem>)ViewData[WebSalonSpa.Helpers.LookupNames.LOOKUP_BUSINESS_CATEGORY], "Select business category", new { @class = "form-control select-single-dropdown" })
+                    @Html.ValidationMessageFor(m => m.BusinessCategoryId, "", new { @class = "text-danger" })
                     <!-- /.input group -->
                 </div>
 
@@ -67,10 +64,51 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Gender</label>
+                    <label>Desciption</label>
                     <label style="color:red"> *</label>
-                    @Html.DropDownList("BusinessCategoryId", (List<SelectListItem>)ViewData["LookupBusinessCategories"], new { @class = "form-control select-single-dropdown" })
-                    @Html.ValidationMessageFor(m => m.BusinessCategoryId, "", new { @class = "text-danger" })
+                    <div class="input-group">
+                        @Html.TextAreaFor(m => m.Desciption, new { @class = "form-control", @placeholder = "Enter desciption", @style = "max-height:130px;min-height:62px" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Desciption, "", new { @class = "text-danger" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="bootstrap-timepicker">
+                    <div class="form-group">
+                        <label>Time picker:</label>
+                        <label style="color:red"> *</label>
+                        <div class="input-group date" id="TPTimeOpen" data-target-input="nearest">
+                            @Html.TextBoxFor(m => m.TimeOpen, new { @class = "form-control datetimepicker-input", @placeholder = "Time open", @data_target = "#TPTimeOpen" })
+                            <div class="input-group-append" data-target="#TPTimeOpen" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-clock"></i></div>
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+
+
+                <div class="bootstrap-timepicker">
+                    <div class="form-group">
+                        <label>Time close:</label>
+                        <label style="color:red"> *</label>
+                        <div class="input-group date" id="TPTimeClose" data-target-input="nearest">
+                            @Html.TextBoxFor(m => m.TimeClose, new { @class = "form-control datetimepicker-input", @placeholder = "Time close", @data_target = "#TPTimeClose" })
+                            <div class="input-group-append" data-target="#TPTimeClose" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-clock"></i></div>
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+
+                <div class="form-group">
+                    <label>City</label>
+                    <label style="color:red"> *</label>
+                    @Html.DropDownList("CityId", (List<SelectListItem>)ViewData[WebSalonSpa.Helpers.LookupNames.LOOKUP_CITY], "Select city", new { @class = "form-control select-single-dropdown" })
+                    @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
                     <!-- /.input group -->
                 </div>
 
@@ -156,7 +194,6 @@
 </div>
 
 
-
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -198,6 +235,15 @@
             //Initialize Select2 Elements
             $('.select-single-dropdown').select2({
                 theme: 'bootstrap4'
+            });
+            //Timepicker
+            $('#TPTimeOpen').datetimepicker({
+                format: 'LT',
+                date: moment(new Date())
+            });
+            $('#TPTimeClose').datetimepicker({
+                format: 'LT',
+                date: moment(new Date())
             });
         });
     </script>

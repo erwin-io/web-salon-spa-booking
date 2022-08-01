@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label>Gender</label>
                     <label style="color:red"> *</label>
-                    @Html.DropDownList("GenderId", (List<SelectListItem>)ViewData["LookupEntityGenders"], new { @class = "form-control select-single-dropdown" })
+                    @Html.DropDownList("GenderId", (List<SelectListItem>)ViewData[WebSalonSpa.Helpers.LookupNames.LOOKUP_GENDER], "Select gender", new { @class = "form-control select-single-dropdown" })
                     @Html.ValidationMessageFor(m => m.GenderId, "", new { @class = "text-danger" })
                     <!-- /.input group -->
                 </div>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebSalonSpa.Domain.ViewModel.SearchBusinessViewModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
 }
@@ -6,51 +8,101 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Home Page</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
+        <h2 class="text-center display-4">Enhanced Search</h2>
+    </div>
+    <!-- /.container-fluid -->
 </section>
 
 <!-- Main content -->
 <section class="content">
-
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <!-- Default box -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Home Page</h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                                <i class="fas fa-times"></i>
-                            </button>
+        @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "" }))
+        {
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            @Html.TextBoxFor(m => m.Keyword, new { @type= "search", @class = "form-control form-control-lg", @placeholder = "Search keyword" })
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        Home Page
+                    <div class="row">
+                        <div class="col-6 col-xs-12 col-md-12">
+                        </div>
+                        <div class="col-3 col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Business category</label>
+                                @Html.DropDownList("BusinessCategoryId", (List<SelectListItem>)ViewData[WebSalonSpa.Helpers.LookupNames.LOOKUP_BUSINESS_CATEGORY], "Select business category", new { @class = "form-control select2", @style = "width: 100%;" })
+                            </div>
+                        </div>
+                        <div class="col-3 col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>City</label>
+                                @Html.DropDownList("CityId", (List<SelectListItem>)ViewData[WebSalonSpa.Helpers.LookupNames.LOOKUP_CITY], " Select city", new { @class = "form-control select2", @style = "width: 100%;" })
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        Footer
-                    </div>
-                    <!-- /.card-footer-->
                 </div>
-                <!-- /.card -->
+            </div>
+        }
+        <div class="row mt-3">
+            <div class="col-md-10 offset-md-1">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col px-4">
+                                <div>
+                                    <div class="float-right">2021-04-20 04:04pm</div>
+                                    <h3>Lorem ipsum dolor sit amet</h3>
+                                    <p class="mb-0">consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-auto">
+                                <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo" style="max-height: 160px;">
+                            </div>
+                            <div class="col px-4">
+                                <div>
+                                    <div class="float-right">2021-04-20 10:14pm</div>
+                                    <h3>Lorem ipsum dolor sit amet</h3>
+                                    <p class="mb-0">consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-auto">
+                                <iframe width="240" height="160" src="https://www.youtube.com/embed/WEkSYw3o5is?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="border-0" allowfullscreen></iframe>
+                            </div>
+                            <div class="col px-4">
+                                <div>
+                                    <div class="float-right">2021-04-20 11:54pm</div>
+                                    <h3>Lorem ipsum dolor sit amet</h3>
+                                    <p class="mb-0">consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
-<!-- /.content -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+            $('.select-single-dropdown').select2()
+        });
+    </script>
+}

@@ -16,38 +16,23 @@ namespace WebSalonSpa.Data.DataContext
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int UserId { get; set; }
-
-        [Key]
-        [Column(Order = 2)]
         [StringLength(250)]
         public string BusinessName { get; set; }
 
         [Key]
-        [Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long BusinessCategoryId { get; set; }
-
-        [Key]
-        [Column(Order = 4)]
+        [Column(Order = 2)]
         [StringLength(250)]
         public string BusinessEmail { get; set; }
 
         [Key]
-        [Column(Order = 5)]
+        [Column(Order = 3)]
         public string PrimaryPhoneNumber { get; set; }
 
         public string SecondPhoneNumber { get; set; }
 
         [Key]
-        [Column(Order = 6)]
+        [Column(Order = 4)]
         public string CompleteAddress { get; set; }
-
-        [Key]
-        [Column(Order = 7)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long CityId { get; set; }
 
         public string Desciption { get; set; }
 
@@ -58,15 +43,15 @@ namespace WebSalonSpa.Data.DataContext
         public string TimeClose { get; set; }
 
         [Key]
-        [Column(Order = 8)]
+        [Column(Order = 5)]
         public bool IsVerified { get; set; }
 
         [Key]
-        [Column(Order = 9)]
+        [Column(Order = 6)]
         public bool IsPaid { get; set; }
 
         [Key]
-        [Column(Order = 10)]
+        [Column(Order = 7)]
         public bool IsSuspended { get; set; }
 
         public double? Rating { get; set; }
@@ -79,17 +64,41 @@ namespace WebSalonSpa.Data.DataContext
         public DateTime? DatePermitExpired { get; set; }
 
         [Key]
-        [Column(Order = 11)]
+        [Column(Order = 8)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long EntityStatusId { get; set; }
 
-        public long? Expr1 { get; set; }
+        public long? BusinessCategoryId { get; set; }
 
         [StringLength(250)]
         public string BusinessCategoryName { get; set; }
 
-        public long? Expr2 { get; set; }
+        public long? CityId { get; set; }
 
         public string Name { get; set; }
+
+        public int? UserId { get; set; }
+
+        [StringLength(256)]
+        public string UserName { get; set; }
+
+        public long? UserTypeId { get; set; }
+
+        [StringLength(100)]
+        public string UserTypeName { get; set; }
+
+        public long? FileId { get; set; }
+
+        [StringLength(250)]
+        public string FileName { get; set; }
+
+        [StringLength(100)]
+        public string MimeType { get; set; }
+
+        public long? FileSize { get; set; }
+
+        public byte[] FileContent { get; set; }
+
+        public bool? IsFromStorage { get; set; }
     }
 }

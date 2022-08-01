@@ -21,4 +21,10 @@ namespace WebSalonSpa.Helpers
         public const string Error = "Error";
         public const string CustomError = "Error, {0}";
     }
+    public static class LookupNames
+    {
+        public const string LOOKUP_GENDER = "LOOKUP_GENDER";
+        public const string LOOKUP_BUSINESS_CATEGORY = "LOOKUP_BUSINESS_CATEGORY";
+        public const string LOOKUP_CITY = "LOOKUP_CITY";
+    }
 }

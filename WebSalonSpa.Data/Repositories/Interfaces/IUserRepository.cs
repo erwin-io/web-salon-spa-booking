@@ -10,6 +10,6 @@ namespace WebSalonSpa.Data.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<ApplicationUser> GetById(int id);
+        Task<UserView> GetById(int id);
     }
 }

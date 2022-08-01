@@ -24,11 +24,12 @@ namespace WebSalonSpa.Data.Repositories
 
         #region Methods
 
-        public async Task<ApplicationUser> GetById(int id)
+        public async Task<UserView> GetById(int id)
         {
             using (var ctx = new WebSalonSpaDbContext())
             {
-                return await ctx.Users.Where(c => c.Id == id).SingleOrDefaultAsync();
+                var u = await ctx.UserViews.Where(c => c.UserId == id).SingleOrDefaultAsync();
+                return await ctx.UserViews.Where(c => c.UserId == id).SingleOrDefaultAsync();
             }
         }
         #endregion Methods

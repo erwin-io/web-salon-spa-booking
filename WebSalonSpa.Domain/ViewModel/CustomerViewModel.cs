@@ -23,5 +23,6 @@ namespace WebSalonSpa.Domain.ViewModel
         public string CompleteAddress { get; set; }
         public long EntityStatusId { get; set; }
         public EntityGenderViewModel EntityGender { get; set; }
+        public virtual UserViewModel User { get; set; }
     }
 }

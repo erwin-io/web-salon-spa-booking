@@ -10,7 +10,8 @@ namespace WebSalonSpa.Data.Repositories.Interfaces
     public interface IBusinessRepository
     {
         Task<Business> GetById(long BusinessId);
-        Task<Business> GetByUserId(long UserId);
+        Task<BusinessView> GetByUserId(long UserId);
+        Task<IList<BusinessView>> SearchBusiness();
         Task<bool> UpdateBasicInfo(Business model);
         Task<bool> UpdateContact(Business model);
         Task<bool> UpdateAvailability(Business model);

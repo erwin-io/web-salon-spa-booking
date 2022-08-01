@@ -64,13 +64,6 @@ namespace WebSalonSpa.Domain.BindingModel
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "Firstname")]
-        public string FirstName { get; set; }
-        [Required]
-        [Display(Name = "Lastname")]
-        public string LastName { get; set; }
         [Required]
         [Display(Name = "CompleteAddress")]
         public string CompleteAddress { get; set; }
@@ -89,7 +82,14 @@ namespace WebSalonSpa.Domain.BindingModel
 
     public class RegisterCustomerBindingModel : RegisterUserBindingModel
     {
-        
+
+        [Required]
+        [Display(Name = "Firstname")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Lastname")]
+        public string LastName { get; set; }
+
         [Display(Name = "Middlename")]
         public string MiddleName { get; set; }
 
@@ -108,7 +108,13 @@ namespace WebSalonSpa.Domain.BindingModel
 
     public class RegisterBusinessBindingModel : RegisterUserBindingModel
     {
+        [Required]
+        [Display(Name = "Business name")]
+        public string BusinessName { get; set; }
 
+        [Required]
+        [Display(Name = "Business category")]
+        public long BusinessCategoryId { get; set; }
         [Required]
         [Display(Name = "Primary phone number")]
         public string PrimaryPhoneNumber { get; set; }
@@ -116,12 +122,17 @@ namespace WebSalonSpa.Domain.BindingModel
         [Display(Name = "Second phone number")]
         public string SecondPhoneNumber { get; set; }
 
+        [Display(Name = "City")]
+        public long CityId { get; set; }
+
         [Display(Name = "Desciption")]
         public string Desciption { get; set; }
 
-        [Required]
-        [Display(Name = "Business category")]
-        public long BusinessCategoryId { get; set; }
+        [Display(Name = "Time open")]
+        public string TimeOpen { get; set; }
+
+        [Display(Name = "Time close")]
+        public string TimeClose { get; set; }
     }
 
     public class ResetPasswordBindingModel

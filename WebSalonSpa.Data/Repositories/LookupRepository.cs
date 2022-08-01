@@ -38,6 +38,14 @@ namespace WebSalonSpa.Data.Repositories
                 return await ctx.BusinessCategories.ToListAsync();
             }
         }
+
+        public async Task<IList<City>> GetCities()
+        {
+            using (var ctx = new WebSalonSpaDbContext())
+            {
+                return await ctx.Cities.ToListAsync();
+            }
+        }
         #endregion Methods
     }
 }

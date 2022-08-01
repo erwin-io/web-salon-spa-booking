@@ -86,7 +86,13 @@
     <Compile Include="Enumerations\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
+    <Compile Include="ViewModel\BusinessViewModel.cs" />
+    <Compile Include="ViewModel\BusinessCategoryViewModel.cs" />
+    <Compile Include="ViewModel\SearchViewModel.cs" />
+    <Compile Include="ViewModel\LookupViewModel.cs" />
+    <Compile Include="ViewModel\CityViewModel.cs" />
     <Compile Include="ViewModel\EntityGenderViewModel.cs" />
+    <Compile Include="ViewModel\UserTypeViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\FileViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
